@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Tableau de bord — Géographie du Sud-Kivu</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<header class="admin-header">
+
+    <div>
+
+        🌍 <strong>
+            Géographie du Sud-Kivu
+        </strong>
+
+    </div>
+
+
+    <a href="{{ url_for('admin_logout') }}">
+        Déconnexion
+    </a>
+
+</header>
+
+
+
+<main class="admin-dashboard">
+
+
+    <div class="dashboard-welcome">
+
+        <span>
+            ESPACE ADMINISTRATEUR
+        </span>
+
+        <h1>
+            Bonjour {{ username }} 👋
+        </h1>
+
+        <p>
+            Gérez les publications et les interactions
+            de votre plateforme.
+        </p>
+
+    </div>
+
+
+
+    <div class="admin-actions">
+
+
+        <div class="admin-card">
+
+            <div class="admin-icon">
+                🗺️
+            </div>
+
+            <h2>
+                Cartes
+            </h2>
+
+            <p>
+                Publier et gérer les cartes géographiques.
+            </p>
+
+            <button>
+                Publier une carte
+            </button>
+
+        </div>
+
+
+
+        <div class="admin-card">
+
+            <div class="admin-icon">
+                📰
+            </div>
+
+            <h2>
+                Articles
+            </h2>
+
+            <p>
+                Publier et gérer les articles.
+            </p>
+
+            <button>
+                Publier un article
+            </button>
+
+        </div>
+
+
+
+        <div class="admin-card">
+
+            <div class="admin-icon">
+                📢
+            </div>
+
+            <h2>
+                Annonces
+            </h2>
+
+            <p>
+                Publier et gérer les annonces.
+            </p>
+
+            <button>
+                Publier une annonce
+            </button>
+
+        </div>
+
+
+
+        <div class="admin-card">
+
+            <div class="admin-icon">
+                💬
+            </div>
+
+            <h2>
+                Commentaires
+            </h2>
+
+            <p>
+                Voir les commentaires et répondre au public.
+            </p>
+
+            <button>
+                Voir les commentaires
+            </button>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+</body>
+</html>

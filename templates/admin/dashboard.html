@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Administration - Géographie du Sud-Kivu</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f5;
+            color: #1f2937;
+        }
+
+        header {
+            background: #0a2d1f;
+            color: white;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 21px;
+        }
+
+        .logout {
+            background: #dc3545;
+            color: white;
+            text-decoration: none;
+            padding: 9px 15px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 94%;
+            max-width: 1250px;
+            margin: 30px auto;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            margin-bottom: 5px;
+            color: #0a2d1f;
+        }
+
+        /* ======================
+           STATISTIQUES
+        ====================== */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .stat {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .stat h3 {
+            margin: 0 0 10px;
+            font-size: 14px;
+            color: #667085;
+        }
+
+        .stat strong {
+            font-size: 30px;
+            color: #0a2d1f;
+        }
+
+        /* ======================
+           ACTIONS
+        ====================== */
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .action {
+            display: block;
+            text-align: center;
+            padding: 16px 10px;
+            border-radius: 10px;
+            background: white;
+            color: #0a2d1f;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+        }
+
+        .action:hover {
+            background: #eaf4ef;
+        }
+
+        /* ======================
+           SECTIONS
+        ====================== */
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 23px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        }
+
+        .section h2 {
+            margin-top: 0;
+            color: #0a2d1f;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 12px;
+        }
+
+        /* ======================
+           RECHERCHE
+        ====================== */
+
+        .search {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search input,
+        .search select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            flex: 1;
+        }
+
+        .search button {
+            background: #0a2d1f;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* ======================
+           PUBLICATIONS
+        ====================== */
+
+        .publication {
+            border: 1px solid #e2e8e5;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .publication h3 {
+            margin: 7px 0;
+            color: #0a2d1f;
+        }
+
+        .type {
+            display: inline-block;
+            background: #e8f3ed;
+            color: #0a2d1f;
+            padding: 5px 9px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .date {
+            color: #777;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        button,
+        .btn {
+            border: none;
+            padding: 9px 13px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .edit {
+            background: #e9f2ff;
+            color: #175cd3;
+        }
+
+        .delete {
+            background: #fdecec;
+            color: #c62828;
+        }
+
+        .view {
+            background: #e8f3ed;
+            color: #0a2d1f;
+        }
+
+        /* ======================
+           COMMENTAIRES
+        ====================== */
+
+        .comment {
+            border: 1px solid #e2e8e5;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .comment strong {
+            color: #0a2d1f;
+        }
+
+        .comment-content {
+            margin: 10px 0;
+        }
+
+        .reply {
+            background: #f4f7f5;
+            border-left: 4px solid #0a2d1f;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 6px;
+        }
+
+        .reply-form {
+            margin-top: 12px;
+        }
+
+        .reply-form textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            resize: vertical;
+        }
+
+        .reply-form button {
+            margin-top: 7px;
+            background: #0a2d1f;
+            color: white;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* ======================
+           REACTIONS
+        ====================== */
+
+        .reaction {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+        }
+
+        .reaction:last-child {
+            border-bottom: none;
+        }
+
+        /* ======================
+           MESSAGES
+        ====================== */
+
+        .message {
+            padding: 13px 15px;
+            border-radius: 7px;
+            background: #dff3e5;
+            color: #146c2e;
+            margin-bottom: 20px;
+        }
+
+        .empty {
+            color: #777;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ======================
+           MOBILE
+        ====================== */
+
+        @media (max-width: 900px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+
+            .search {
+                flex-direction: column;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            .section {
+                padding: 17px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>
+        🌍 Géographie du Sud-Kivu
+    </h1>
+
+    <a
+        href="{{ url_for('admin_logout') }}"
+        class="logout"
+    >
+        🚪 Déconnexion
+    </a>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="welcome">
+
+        <h2>
+            Tableau de bord administrateur
+        </h2>
+
+        <p>
+            Bienvenue
+            <strong>{{ username }}</strong>.
+            Gérez votre plateforme depuis cet espace.
+        </p>
+
+    </div>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- ======================
+         STATISTIQUES
+    ======================= -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <h3>📚 Publications</h3>
+
+            <strong>
+                {{ total_publications }}
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3>💬 Commentaires</h3>
+
+            <strong>
+                {{ total_comments }}
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3>❤️ Réactions</h3>
+
+            <strong>
+                {{ total_reactions }}
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3>👥 Utilisateurs</h3>
+
+            <strong>
+                {{ total_users }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================
+         ACTIONS
+    ======================= -->
+
+    <div class="actions">
+
+        <a
+            href="{{ url_for('publier') }}"
+            class="action"
+        >
+            ➕ Publier
+        </a>
+
+        <a
+            href="#publications"
+            class="action"
+        >
+            🗺️ Cartes
+        </a>
+
+        <a
+            href="#publications"
+            class="action"
+        >
+            📚 Articles
+        </a>
+
+        <a
+            href="#publications"
+            class="action"
+        >
+            📢 Annonces
+        </a>
+
+        <a
+            href="#commentaires"
+            class="action"
+        >
+            💬 Commentaires
+        </a>
+
+    </div>
+
+
+    <!-- ======================
+         PUBLICATIONS
+    ======================= -->
+
+    <div
+        class="section"
+        id="publications"
+    >
+
+        <h2>
+            📋 Gestion des publications
+        </h2>
+
+
+        <form
+            method="GET"
+            class="search"
+        >
+
+            <input
+                type="text"
+                name="q"
+                placeholder="🔎 Rechercher une publication..."
+                value="{{ search }}"
+            >
+
+
+            <select name="type">
+
+                <option value="">
+                    Tous les types
+                </option>
+
+                <option
+                    value="carte"
+                    {% if selected_type == "carte" %}selected{% endif %}
+                >
+                    🗺️ Cartes
+                </option>
+
+                <option
+                    value="article"
+                    {% if selected_type == "article" %}selected{% endif %}
+                >
+                    📚 Articles
+                </option>
+
+                <option
+                    value="annonce"
+                    {% if selected_type == "annonce" %}selected{% endif %}
+                >
+                    📢 Annonces
+                </option>
+
+            </select>
+
+
+            <button type="submit">
+                Rechercher
+            </button>
+
+        </form>
+
+
+        {% if publications %}
+
+            {% for publication in publications %}
+
+                <div class="publication">
+
+                    <span class="type">
+
+                        {% if publication["type"] == "carte" %}
+
+                            🗺️ CARTE
+
+                        {% elif publication["type"] == "article" %}
+
+                            📚 ARTICLE
+
+                        {% else %}
+
+                            📢 ANNONCE
+
+                        {% endif %}
+
+                    </span>
+
+
+                    <h3>
+                        {{ publication["title"] }}
+                    </h3>
+
+
+                    <p>
+                        {{ publication["content"] }}
+                    </p>
+
+
+                    <div class="date">
+
+                        📅
+                        {{ publication["created_at"] }}
+
+                    </div>
+
+
+                    <div class="buttons">
+
+                        <a
+                            href="{{ url_for('modifier_publication', publication_id=publication['id']) }}"
+                            class="btn edit"
+                        >
+                            ✏️ Modifier
+                        </a>
+
+
+                        <a
+                            href="{{ url_for('publication_detail', publication_id=publication['id']) }}"
+                            class="btn view"
+                            target="_blank"
+                        >
+                            👁️ Voir
+                        </a>
+
+
+                        <form
+                            action="{{ url_for('supprimer_publication', publication_id=publication['id']) }}"
+                            method="POST"
+                            onsubmit="return confirm('Supprimer définitivement cette publication ?');"
+                        >
+
+                            <button
+                                type="submit"
+                                class="delete"
+                            >
+                                🗑️ Supprimer
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+
+                Aucune publication trouvée.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ======================
+         COMMENTAIRES
+    ======================= -->
+
+    <div
+        class="section"
+        id="commentaires"
+    >
+
+        <h2>
+            💬 Commentaires des visiteurs
+        </h2>
+
+
+        {% if comments %}
+
+            {% for comment in comments %}
+
+                <div class="comment">
+
+                    <strong>
+                        👤 {{ comment["author_name"] }}
+                    </strong>
+
+
+                    <div class="date">
+
+                        📅 {{ comment["created_at"] }}
+
+                    </div>
+
+
+                    <p>
+
+                        Publication :
+                        <strong>
+                            {{ comment["publication_title"] }}
+                        </strong>
+
+                    </p>
+
+
+                    {% if comment["content"] %}
+
+                        <div class="comment-content">
+
+                            {{ comment["content"] }}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if comment["voice"] %}
+
+                        <audio controls>
+
+                            <source
+                                src="{{ url_for('serve_upload', filename=comment['voice']) }}"
+                            >
+
+                            Votre navigateur ne supporte pas l'audio.
+
+                        </audio>
+
+                    {% endif %}
+
+
+                    {% if comment["reply_content"] %}
+
+                        <div class="reply">
+
+                            <strong>
+                                👑 Réponse de l'administrateur
+                            </strong>
+
+                            <p>
+                                {{ comment["reply_content"] }}
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('repondre_commentaire', comment_id=comment['id']) }}"
+                        class="reply-form"
+                    >
+
+                        <textarea
+                            name="content"
+                            placeholder="Écrire une réponse..."
+                            required
+                        ></textarea>
+
+
+                        <button type="submit">
+                            ↩️ Répondre
+                        </button>
+
+                    </form>
+
+
+                    <div class="buttons">
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('supprimer_commentaire', comment_id=comment['id']) }}"
+                            onsubmit="return confirm('Supprimer ce commentaire ?');"
+                        >
+
+                            <button
+                                type="submit"
+                                class="delete"
+                            >
+                                🗑️ Supprimer
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+
+                Aucun commentaire pour le moment.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ======================
+         RÉACTIONS
+    ======================= -->
+
+    <div class="section">
+
+        <h2>
+            ❤️ Réactions des visiteurs
+        </h2>
+
+
+        {% if reactions %}
+
+            {% for reaction in reactions %}
+
+                <div class="reaction">
+
+                    <div>
+
+                        <strong>
+                            {{ reaction["reaction"] }}
+                        </strong>
+
+                        — {{ reaction["publication_title"] }}
+
+                        <div class="date">
+
+                            {% if reaction["username"] %}
+
+                                👤 {{ reaction["username"] }}
+
+                            {% else %}
+
+                                👤 Visiteur
+
+                            {% endif %}
+
+                            ·
+                            📅 {{ reaction["created_at"] }}
+
+                        </div>
+
+                    </div>
+
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('supprimer_reaction', reaction_id=reaction['id']) }}"
+                        onsubmit="return confirm('Supprimer cette réaction ?');"
+                    >
+
+                        <button
+                            type="submit"
+                            class="delete"
+                        >
+                            🗑️
+                        </button>
+
+                    </form>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+
+                Aucune réaction pour le moment.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

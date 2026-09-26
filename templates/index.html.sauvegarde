@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}
+Accueil — Géographie du Sud-Kivu
+{% endblock %}
+
+
+{% block content %}
+
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="badge">
+            🌍 PLATEFORME GÉOGRAPHIQUE
+        </span>
+
+
+        <h1>
+            Découvrez le
+            <strong>Sud-Kivu</strong>
+        </h1>
+
+
+        <p>
+            Explorez les territoires, les paysages,
+            les cartes, les ressources et les réalités
+            géographiques du Sud-Kivu.
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a href="#" class="btn-primary">
+                🗺️ Explorer les cartes
+            </a>
+
+            <a href="#" class="btn-secondary">
+                📚 Découvrir les articles
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="section">
+
+    <div class="section-title">
+
+        <span>EXPLORATION</span>
+
+        <h2>
+            Explorez notre plateforme
+        </h2>
+
+        <p>
+            Découvrez des contenus géographiques
+            consacrés au Sud-Kivu.
+        </p>
+
+    </div>
+
+
+
+    <div class="cards">
+
+
+        <div class="feature-card">
+
+            <div class="icon">
+                🗺️
+            </div>
+
+            <h3>
+                Cartes géographiques
+            </h3>
+
+            <p>
+                Consultez différentes cartes
+                permettant de mieux comprendre
+                le territoire du Sud-Kivu.
+            </p>
+
+            <a href="#">
+                Explorer →
+            </a>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="icon">
+                📚
+            </div>
+
+            <h3>
+                Articles
+            </h3>
+
+            <p>
+                Découvrez des articles consacrés
+                à la géographie et aux réalités
+                du Sud-Kivu.
+            </p>
+
+            <a href="#">
+                Lire les articles →
+            </a>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="icon">
+                📢
+            </div>
+
+            <h3>
+                Annonces
+            </h3>
+
+            <p>
+                Retrouvez les informations et
+                annonces publiées sur la plateforme.
+            </p>
+
+            <a href="#">
+                Voir les annonces →
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<section class="about-section">
+
+    <div>
+
+        <span class="badge">
+            À PROPOS
+        </span>
+
+
+        <h2>
+            Comprendre notre territoire,
+            c'est mieux le valoriser.
+        </h2>
+
+
+        <p>
+            Géographie du Sud-Kivu est une plateforme
+            consacrée à la publication et au partage
+            de contenus géographiques sur la province
+            du Sud-Kivu.
+        </p>
+
+
+        <p>
+            Cartes, articles, annonces et échanges
+            avec le public seront progressivement
+            réunis sur une même plateforme.
+        </p>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

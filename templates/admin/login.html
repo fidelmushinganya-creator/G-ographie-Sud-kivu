@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Connexion Admin — Géographie du Sud-Kivu</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body class="admin-page">
+
+
+<div class="admin-login">
+
+    <div class="admin-logo">
+        🌍
+    </div>
+
+    <h1>
+        Espace administrateur
+    </h1>
+
+    <p class="admin-subtitle">
+        Géographie du Sud-Kivu
+    </p>
+
+
+    {% if error %}
+
+    <div class="error-message">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+
+    <form method="POST">
+
+        <label>
+            Nom d'utilisateur
+        </label>
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Votre nom d'utilisateur"
+            required
+        >
+
+
+        <label>
+            Mot de passe
+        </label>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Votre mot de passe"
+            required
+        >
+
+
+        <button type="submit">
+            🔐 Se connecter
+        </button>
+
+    </form>
+
+
+    <a href="/" class="back-home">
+        ← Retour à l'accueil
+    </a>
+
+</div>
+
+
+</body>
+</html>

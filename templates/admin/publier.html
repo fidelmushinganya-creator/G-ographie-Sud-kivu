@@ -1,0 +1,696 @@
+<!DOCTYPE html><html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>
+    {% if mode == "modifier" %}
+        Modifier la publication
+    {% else %}
+        Nouvelle publication
+    {% endif %}
+    — Géographie du Sud-Kivu
+</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f7f5;
+        color: #173b2b;
+    }
+
+    .header {
+        background: #0f3d2e;
+        color: white;
+        padding: 18px 20px;
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 22px;
+    }
+
+    .header p {
+        margin: 6px 0 0;
+        opacity: .85;
+        font-size: 14px;
+    }
+
+    .container {
+        width: 95%;
+        max-width: 900px;
+        margin: 30px auto;
+    }
+
+    .back {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #0f3d2e;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .card {
+        background: white;
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0,0,0,.08);
+        margin-bottom: 20px;
+    }
+
+    .card h2 {
+        margin-top: 0;
+        color: #0f3d2e;
+    }
+
+    .types {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .type-option {
+        border: 2px solid #dce7e1;
+        border-radius: 14px;
+        padding: 22px 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: .2s;
+        background: #fff;
+    }
+
+    .type-option:hover {
+        transform: translateY(-2px);
+        border-color: #0f3d2e;
+    }
+
+    .type-option.active {
+        border-color: #0f3d2e;
+        background: #edf7f1;
+    }
+
+    .type-icon {
+        font-size: 38px;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .type-name {
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .type-description {
+        display: block;
+        font-size: 13px;
+        color: #66756d;
+        margin-top: 7px;
+    }
+
+    .form-section {
+        display: none;
+    }
+
+    .form-section.active {
+        display: block;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin: 18px 0 8px;
+    }
+
+    input[type="text"],
+    textarea,
+    input[type="file"] {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid #ccd9d2;
+        border-radius: 10px;
+        font-size: 15px;
+        font-family: inherit;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #0f3d2e;
+    }
+
+    textarea {
+        min-height: 220px;
+        resize: vertical;
+    }
+
+    input[type="file"] {
+        background: #f8faf9;
+    }
+
+    .file-box {
+        border: 2px dashed #b9cbc1;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        background: #f9fbfa;
+    }
+
+    .file-box strong {
+        display: block;
+        margin-bottom: 7px;
+    }
+
+    .current-image {
+        margin-top: 12px;
+        font-size: 13px;
+        color: #53655c;
+    }
+
+    .preview {
+        display: none;
+        width: 100%;
+        max-height: 300px;
+        object-fit: contain;
+        margin-top: 15px;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+    }
+
+    .help {
+        color: #687870;
+        font-size: 13px;
+        margin-top: 7px;
+    }
+
+    .error {
+        background: #ffe8e8;
+        color: #9b1c1c;
+        padding: 13px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .btn {
+        border: none;
+        border-radius: 10px;
+        padding: 13px 20px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-primary {
+        background: #0f3d2e;
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #e8eeeb;
+        color: #173b2b;
+    }
+
+    .btn-primary:hover {
+        background: #0a3024;
+    }
+
+    @media (max-width: 650px) {
+
+        .types {
+            grid-template-columns: 1fr;
+        }
+
+        .card {
+            padding: 18px;
+        }
+
+        .actions {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+</head><body><header class="header">
+    <h1>🌍 Géographie du Sud-Kivu</h1><p>
+    {% if mode == "modifier" %}
+        Modification d'une publication
+    {% else %}
+        Espace d'administration — Nouvelle publication
+    {% endif %}
+</p>
+
+</header><div class="container"><a
+    href="{{ url_for('admin_dashboard') }}"
+    class="back"
+>
+    ← Retour au tableau de bord
+</a>
+
+
+{% if error %}
+    <div class="error">
+        {{ error }}
+    </div>
+{% endif %}
+
+
+<div class="card">
+
+    <h2>
+        {% if mode == "modifier" %}
+            ✏️ Modifier la publication
+        {% else %}
+            ➕ Que souhaitez-vous publier ?
+        {% endif %}
+    </h2>
+
+
+    {% if mode != "modifier" %}
+
+    <div class="types">
+
+        <div
+            class="type-option"
+            data-type="carte"
+            onclick="selectType('carte')"
+        >
+            <span class="type-icon">🗺️</span>
+
+            <span class="type-name">
+                Carte
+            </span>
+
+            <span class="type-description">
+                Publier une carte géographique
+            </span>
+        </div>
+
+
+        <div
+            class="type-option"
+            data-type="article"
+            onclick="selectType('article')"
+        >
+            <span class="type-icon">📚</span>
+
+            <span class="type-name">
+                Article
+            </span>
+
+            <span class="type-description">
+                Publier un article
+            </span>
+        </div>
+
+
+        <div
+            class="type-option"
+            data-type="annonce"
+            onclick="selectType('annonce')"
+        >
+            <span class="type-icon">📢</span>
+
+            <span class="type-name">
+                Annonce
+            </span>
+
+            <span class="type-description">
+                Publier une annonce
+            </span>
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<div
+    class="card form-section"
+    id="publicationForm"
+>
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        onsubmit="return validateForm()"
+    >
+
+        <input
+            type="hidden"
+            name="type"
+            id="type"
+            value="{{ publication.type if publication else request.args.get('type', '') }}"
+        >
+
+
+        <label for="title">
+            Titre
+        </label>
+
+        <input
+            type="text"
+            id="title"
+            name="title"
+            value="{{ publication.title if publication else '' }}"
+            placeholder="Entrez le titre de la publication"
+            required
+        >
+
+
+        <label for="image">
+
+            <span id="imageLabel">
+                Image
+            </span>
+
+        </label>
+
+
+        <div class="file-box">
+
+            <strong id="imageInstruction">
+                Sélectionner une image depuis votre téléphone
+            </strong>
+
+            <input
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+                onchange="previewImage(event)"
+            >
+
+            <div
+                class="help"
+                id="imageHelp"
+            >
+                Formats acceptés : JPG, JPEG, PNG, WEBP ou GIF.
+            </div>
+
+            {% if publication and publication.image %}
+
+                <div class="current-image">
+                    🖼️ Image actuelle conservée.
+                    Vous pouvez en sélectionner une nouvelle si nécessaire.
+                </div>
+
+            {% endif %}
+
+            <img
+                id="preview"
+                class="preview"
+                alt="Aperçu de l'image"
+            >
+
+        </div>
+
+
+        <label for="content">
+            <span id="contentLabel">
+                Contenu
+            </span>
+        </label>
+
+        <textarea
+            id="content"
+            name="content"
+            placeholder="Écrivez le contenu..."
+            required
+        >{{ publication.content if publication else '' }}</textarea>
+
+
+        <div class="actions">
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+                id="submitButton"
+            >
+                🚀 Publier
+            </button>
+
+            <a
+                href="{{ url_for('admin_dashboard') }}"
+                class="btn btn-secondary"
+            >
+                Annuler
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div><script>
+
+    const initialType =
+        document.getElementById("type").value;
+
+
+    function selectType(type) {
+
+        document.getElementById("type").value = type;
+
+        document.querySelectorAll(".type-option")
+            .forEach(function(option) {
+
+                option.classList.remove("active");
+
+            });
+
+
+        const selected =
+            document.querySelector(
+                '.type-option[data-type="' + type + '"]'
+            );
+
+
+        if (selected) {
+            selected.classList.add("active");
+        }
+
+
+        const form =
+            document.getElementById("publicationForm");
+
+        form.classList.add("active");
+
+
+        const image =
+            document.getElementById("image");
+
+        const imageLabel =
+            document.getElementById("imageLabel");
+
+        const imageInstruction =
+            document.getElementById("imageInstruction");
+
+        const imageHelp =
+            document.getElementById("imageHelp");
+
+        const contentLabel =
+            document.getElementById("contentLabel");
+
+        const content =
+            document.getElementById("content");
+
+        const submitButton =
+            document.getElementById("submitButton");
+
+
+        if (type === "carte") {
+
+            imageLabel.textContent =
+                "Image de la carte";
+
+            imageInstruction.textContent =
+                "🗺️ Choisissez l'image de votre carte";
+
+            imageHelp.textContent =
+                "L'image de la carte est obligatoire.";
+
+            image.required = true;
+
+            contentLabel.textContent =
+                "Description de la carte";
+
+            content.placeholder =
+                "Décrivez cette carte : région, territoire, localisation, éléments représentés...";
+
+            submitButton.textContent =
+                "🗺️ Publier la carte";
+
+        }
+
+
+        else if (type === "article") {
+
+            imageLabel.textContent =
+                "Image de couverture";
+
+            imageInstruction.textContent =
+                "📷 Ajouter une image de couverture";
+
+            imageHelp.textContent =
+                "L'image est facultative.";
+
+            image.required = false;
+
+            contentLabel.textContent =
+                "Article";
+
+            content.placeholder =
+                "Rédigez votre article ici...";
+
+            submitButton.textContent =
+                "📚 Publier l'article";
+
+        }
+
+
+        else if (type === "annonce") {
+
+            imageLabel.textContent =
+                "Image de l'annonce";
+
+            imageInstruction.textContent =
+                "📷 Ajouter une image à l'annonce";
+
+            imageHelp.textContent =
+                "L'image est facultative.";
+
+            image.required = false;
+
+            contentLabel.textContent =
+                "Annonce";
+
+            content.placeholder =
+                "Écrivez votre annonce ici...";
+
+            submitButton.textContent =
+                "📢 Publier l'annonce";
+
+        }
+
+    }
+
+
+    function previewImage(event) {
+
+        const file =
+            event.target.files[0];
+
+        const preview =
+            document.getElementById("preview");
+
+
+        if (!file) {
+
+            preview.style.display = "none";
+
+            preview.src = "";
+
+            return;
+        }
+
+
+        if (!file.type.startsWith("image/")) {
+
+            alert("Veuillez sélectionner une image.");
+
+            event.target.value = "";
+
+            preview.style.display = "none";
+
+            return;
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload = function(e) {
+
+            preview.src =
+                e.target.result;
+
+            preview.style.display =
+                "block";
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+    }
+
+
+    function validateForm() {
+
+        const type =
+            document.getElementById("type").value;
+
+        const image =
+            document.getElementById("image");
+
+
+        if (!type) {
+
+            alert(
+                "Veuillez choisir Carte, Article ou Annonce."
+            );
+
+            return false;
+        }
+
+
+        if (
+            type === "carte" &&
+            !image.files.length
+            {% if not publication %}
+            && true
+            {% endif %}
+        ) {
+
+            alert(
+                "Une image est obligatoire pour une carte."
+            );
+
+            return false;
+        }
+
+
+        return true;
+
+    }
+
+
+    if (initialType) {
+
+        selectType(initialType);
+
+    }
+
+</script></body>
+</html>

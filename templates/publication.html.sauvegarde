@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+    .publication-detail {
+        max-width: 1000px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+    .publication-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .publication-image {
+        width: 100%;
+        max-height: 550px;
+        object-fit: contain;
+        display: block;
+        background: #eef3f0;
+    }
+
+    .publication-info {
+        padding: 25px;
+    }
+
+    .publication-info h1 {
+        margin-top: 0;
+        color: #0f3d2e;
+    }
+
+    .meta {
+        color: #89958f;
+        font-size: 14px;
+    }
+
+    .publication-content {
+        margin-top: 20px;
+        color: #405049;
+        line-height: 1.7;
+        white-space: pre-line;
+    }
+
+    #commentaires {
+        margin-top: 25px;
+        padding: 25px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    #commentaires h2 {
+        color: #0f3d2e;
+        margin-top: 0;
+    }
+
+    #commentaires input,
+    #commentaires textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px;
+        margin-top: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #d8e0dc;
+        border-radius: 8px;
+        font-family: Arial, sans-serif;
+    }
+
+    #commentaires textarea {
+        min-height: 110px;
+        resize: vertical;
+    }
+
+    #commentaires button {
+        background: #0f3d2e;
+        color: white;
+        border: none;
+        padding: 12px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    #commentaires button:hover {
+        opacity: .9;
+    }
+
+    .comment-list {
+        list-style: none;
+        padding: 0;
+        margin: 25px 0 0;
+    }
+
+    .comment-list li {
+        background: #f4f7f5;
+        padding: 15px;
+        margin-top: 12px;
+        border-radius: 10px;
+    }
+
+    .comment-list strong {
+        color: #0f3d2e;
+    }
+
+    .comment-list .date {
+        color: #89958f;
+        font-size: 12px;
+        margin-left: 8px;
+    }
+
+    .comment-list p {
+        margin-bottom: 0;
+        white-space: pre-line;
+    }
+
+</style>
+
+
+<div class="publication-detail">
+
+    <div class="publication-card">
+
+        {% if publication.image %}
+
+            <img
+                class="publication-image"
+                src="{{ url_for(
+                    'serve_upload',
+                    filename=publication.image
+                ) }}"
+                alt="{{ publication.title }}"
+            >
+
+        {% endif %}
+
+
+        <div class="publication-info">
+
+            <h1>
+                {{ publication.title }}
+            </h1>
+
+            <p class="meta">
+                Publié le {{ publication.created_at }}
+            </p>
+
+            <div class="publication-content">
+                {{ publication.content }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <section id="commentaires">
+
+        <h2>
+            💬 Commentaires ({{ comments|length }})
+        </h2>
+
+
+        <form
+            method="POST"
+            action="{{ url_for(
+                'commenter_publication',
+                publication_id=publication.id
+            ) }}"
+        >
+
+            <label for="author_name">
+                Votre nom
+            </label>
+
+            <input
+                type="text"
+                id="author_name"
+                name="author_name"
+                placeholder="Entrez votre nom"
+                required
+                maxlength="80"
+            >
+
+
+            <label for="content">
+                Votre commentaire
+            </label>
+
+            <textarea
+                id="content"
+                name="content"
+                placeholder="Écrivez votre commentaire..."
+                required
+                maxlength="2000"
+            ></textarea>
+
+
+            <button type="submit">
+                💬 Publier le commentaire
+            </button>
+
+        </form>
+
+
+        <ul class="comment-list">
+
+            {% for comment in comments %}
+
+                <li>
+
+                    <strong>
+                        👤 {{ comment.author_name }}
+                    </strong>
+
+                    <span class="date">
+                        {{ comment.created_at }}
+                    </span>
+
+                    <p>
+                        {{ comment.content }}
+                    </p>
+
+                </li>
+
+            {% else %}
+
+                <li>
+                    Aucun commentaire pour le moment.
+                </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </section>
+
+</div>
+
+{% endblock %}

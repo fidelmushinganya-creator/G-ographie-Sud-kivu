@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Galerie des cartes — Géographie du Sud-Kivu
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f5;
+            color: #173b2b;
+        }
+
+        header {
+            background: #0f3d2e;
+            color: white;
+            padding: 18px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        header p {
+            margin: 6px 0 0;
+            opacity: .85;
+        }
+
+        .container {
+            width: 94%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .top {
+            margin-bottom: 25px;
+        }
+
+        .back {
+            color: #0f3d2e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .title {
+            margin-top: 18px;
+        }
+
+        .title h2 {
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
+
+        .title p {
+            color: #607068;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+            transition: .2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .image-box {
+            width: 100%;
+            height: 230px;
+            background: #e8eeeb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .no-image {
+            font-size: 50px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e8f4ed;
+            color: #0f3d2e;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .content h3 {
+            margin: 0 0 10px;
+            font-size: 20px;
+        }
+
+        .description {
+            color: #617069;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .date {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #89958f;
+        }
+
+        .empty {
+            background: white;
+            border-radius: 16px;
+            padding: 50px 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,.06);
+        }
+
+        .empty-icon {
+            font-size: 55px;
+        }
+
+        .empty h3 {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 850px) {
+
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .title h2 {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>
+        🌍 Géographie du Sud-Kivu
+    </h1>
+
+    <p>
+        Plateforme géographique du Sud-Kivu
+    </p>
+
+</header>
+
+
+<div class="container">
+
+    <div class="top">
+
+        <a
+            href="{{ url_for('accueil') }}"
+            class="back"
+        >
+            ← Retour à l'accueil
+        </a>
+
+        <div class="title">
+
+            <h2>
+                🗺️ Galerie des cartes
+            </h2>
+
+            <p>
+                Explorez les cartes géographiques publiées
+                sur la plateforme.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if publications %}
+
+        <div class="grid">
+
+            {% for publication in publications %}
+
+                <a
+                    href="{{ url_for(
+                        'publication_detail',
+                        publication_id=publication.id
+                    ) }}"
+                    class="card-link"
+                >
+
+                    <article class="card">
+
+                        <div class="image-box">
+
+                            {% if publication.image %}
+
+                                <img
+                                    src="{{ url_for(
+                                        'serve_upload',
+                                        filename=publication.image
+                                    ) }}"
+                                    alt="{{ publication.title }}"
+                                >
+
+                            {% else %}
+
+                                <div class="no-image">
+                                    🗺️
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="content">
+
+                            <span class="badge">
+                                🗺️ CARTE
+                            </span>
+
+                            <h3>
+                                {{ publication.title }}
+                            </h3>
+
+                            <div class="description">
+                                {{ publication.content }}
+                            </div>
+
+                            <div class="date">
+                                Publié le {{ publication.created_at }}
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </a>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                🗺️
+            </div>
+
+            <h3>
+                Aucune carte publiée pour le moment
+            </h3>
+
+            <p>
+                Les nouvelles cartes apparaîtront
+                automatiquement ici.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

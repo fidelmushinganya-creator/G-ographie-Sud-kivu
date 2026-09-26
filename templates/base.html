@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Géographie du Sud-Kivu{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        🌍 Géographie du <span>Sud-Kivu</span>
+    </div>
+
+<nav>
+    <a href="/">Accueil</a>
+    <a href="#">Cartes</a>
+    <a href="#">Articles</a>
+    <a href="#">Annonces</a>
+    <a href="#">À propos</a>
+
+    <a href="https://wa.me/243970053774"
+       class="whatsapp-btn"
+       target="_blank">
+        💬 WhatsApp
+    </a>
+</nav>
+</header>
+
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+<footer>
+
+    <div>
+        <h3>🌍 Géographie du Sud-Kivu</h3>
+
+        <p>
+            Une plateforme dédiée à la découverte,
+            à l'étude et à la valorisation du territoire
+            du Sud-Kivu.
+        </p>
+    </div>
+
+
+    <div>
+        <h3>Navigation</h3>
+
+        <a href="/">Accueil</a>
+        <a href="#">Cartes</a>
+        <a href="#">Articles</a>
+        <a href="#">Annonces</a>
+    </div>
+
+
+    <div>
+        <h3>Contact</h3>
+
+        <p>📍 Sud-Kivu, RDC</p>
+        <p>🌍 Géographie • Éducation • Information</p>
+    </div>
+
+</footer>
+
+
+<div class="copyright">
+
+    © 2026 Géographie du Sud-Kivu —
+    Tous droits réservés.
+
+</div>
+
+</body>
+</html>
