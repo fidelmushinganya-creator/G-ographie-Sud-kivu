@@ -663,9 +663,6 @@ def publier():
         "admin/publier.html",
         selected_type=selected_type
     )
-@app.route(
-    "/publication/<int:publication_id>"
-)
 
 # ==========================================================
 # MODIFIER UNE PUBLICATION
